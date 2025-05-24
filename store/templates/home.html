@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +10,12 @@
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!--  Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Store</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="/home/">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
-      </ul>
+    <div style="margin-left: auto;">
+      <a class="btn btn-link" href="/home/">Home</a>
+      <a class="btn btn-link" href="/logout/">Logout</a>
     </div>
   </nav>
 
@@ -29,10 +28,10 @@
       <!-- Books -->
       <div class="col-sm-3">
         <div class="card">
-          <img src="book1.jpg" class="card-img-top img-fluid" alt="Books" />
+          <img src="{% static 'book1.jpg' %}" class="card-img-top img-fluid" alt="Books" />
           <div class="card-body">
             <h5 class="card-title">Books</h5>
-            <a href="/books/" class="btn btn-primary">Go to Books</a>
+            <a href="{% url 'books' %}" class="btn btn-primary">Go to Books</a>
           </div>
         </div>
       </div>
@@ -40,10 +39,10 @@
       <!-- Electronics -->
       <div class="col-sm-3">
         <div class="card">
-          <img src="electronics1.jpg" class="card-img-top img-fluid" alt="Electronics" />
+          <img src="{% static 'electronics1.jpg' %}" class="card-img-top img-fluid" alt="Electronics" />
           <div class="card-body">
             <h5 class="card-title">Electronics</h5>
-            <a href="/electronics/" class="btn btn-primary">Go to Electronics</a>
+            <a href="{% url 'electronics' %}" class="btn btn-primary">Go to Electronics</a>
           </div>
         </div>
       </div>
@@ -51,10 +50,10 @@
       <!-- Apparel -->
       <div class="col-sm-3">
         <div class="card">
-          <img src="apparel1.jpg" class="card-img-top img-fluid" alt="Apparel" />
+          <img src="{% static 'apparel1.jpg' %}" class="card-img-top img-fluid" alt="Apparel" />
           <div class="card-body">
             <h5 class="card-title">Apparel</h5>
-            <a href="/apparel/" class="btn btn-primary">Go to Apparel</a>
+            <a href="{% url 'apparel' %}" class="btn btn-primary">Go to Apparel</a>
           </div>
         </div>
       </div>

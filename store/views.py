@@ -6,32 +6,30 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import logout 
 
+def store_home(request):
+    return render(request, 'home.html')
+
 def electronics(request):
-    return HttpResponse("List of Electronics Products")
+    return render(request, 'electronics.html')
 
 def apparel(request):
-    return HttpResponse("List of Apparel Products")
+    return render(request, 'apparel.html')
 
 def books(request):
-    return HttpResponse("List of Books")
-
-def store_home(request):
-    template = loader.get_template('store_home.html')
-    return HttpResponse(template.render())
-
+    return render(request, 'books.html')
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')  
+        username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('store-home')  
+        if username == 'admin' and password == 'pa$$w0rd':
+            return redirect('home')  
         else:
             messages.error(request, 'Invalid username or password')
-            return redirect('login')
-    return render(request, 'login.html')   
+    return render(request, 'login.html')
+
+def home_view(request):
+    return render(request, 'home.html')
 
 def signup_view(request):
     if request.method == 'POST':
@@ -47,4 +45,4 @@ def signup_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('store-home')
+    return redirect('login')

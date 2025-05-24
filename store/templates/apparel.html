@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,14 +13,13 @@
   <!-- Navigation bar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Store</a>
+    <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="/store/electronics/">Electronics</a></li>
         <li class="nav-item"><a class="nav-link" href="/store/books/">Books</a></li>
         <li class="nav-item"><a class="nav-link active" href="/store/apparel/">Apparel</a></li>
-      </ul>
-    </div>
+    </ul>
   </nav>
   
-
   <!-- Page Title -->
   <div class="container mt-4">
     <h1 class="text-center">Apparel Showcase</h1>
@@ -33,7 +33,7 @@
       <!-- Apparel 1 -->
       <div class="col-sm-4 mb-4">
         <div class="card">
-          <img src="apparel1.jpg" class="card-img-top img-fluid" alt="T-Shirt" />
+          <img src="{% static 'apparel1.jpg' %}" class="card-img-top img-fluid" alt="T-Shirt" />
           <div class="card-body">
             <h5 class="card-title">Classic T-Shirt</h5>
             <p class="card-text">Size: M</p>
@@ -47,7 +47,7 @@
       <!-- Apparel 2 -->
       <div class="col-sm-4 mb-4">
         <div class="card">
-          <img src="apparel2.jpg" class="card-img-top img-fluid" alt="Jeans" />
+          <img src="{% static 'apparel2.jpg' %}" class="card-img-top img-fluid" alt="Jeans" />
           <div class="card-body">
             <h5 class="card-title">Blue Jeans</h5>
             <p class="card-text">Size: 32</p>
@@ -61,7 +61,7 @@
       <!-- Apparel 3 -->
       <div class="col-sm-4 mb-4">
         <div class="card">
-          <img src="apparel3.jpg" class="card-img-top img-fluid" alt="Jacket" />
+          <img src="{% static 'apparel3.jpg' %}" class="card-img-top img-fluid" alt="Jacket" />
           <div class="card-body">
             <h5 class="card-title">Leather Jacket</h5>
             <p class="card-text">Size: L</p>
@@ -72,39 +72,42 @@
         </div>
       </div>
 
-        <div class="col-sm-4 mb-4">
+      <!-- Apparel 4 -->
+      <div class="col-sm-4 mb-4">
         <div class="card">
-          <img src="apparel4.jpg" class="card-img-top img-fluid" alt="Dress" />
+          <img src="{% static 'apparel4.jpg' %}" class="card-img-top img-fluid" alt="Dress" />
           <div class="card-body">
             <h5 class="card-title">Dress</h5>
-            <p class="card-text">Size: s</p>
-            <p class="card-text">Color: white-black </p>
+            <p class="card-text">Size: S</p>
+            <p class="card-text">Color: White-Black</p>
             <p class="card-text">$50.00</p>
             <button class="btn btn-primary">Details</button>
           </div>
         </div>
       </div>
 
+      <!-- Apparel 5 -->
       <div class="col-sm-4 mb-4">
         <div class="card">
-          <img src="apparel5.jpg" class="card-img-top img-fluid" alt="Vest" />
+          <img src="{% static 'apparel5.jpg' %}" class="card-img-top img-fluid" alt="Vest" />
           <div class="card-body">
             <h5 class="card-title">Vest</h5>
-            <p class="card-text">Size: xs</p>
-            <p class="card-text">Color: white </p>
+            <p class="card-text">Size: XS</p>
+            <p class="card-text">Color: White</p>
             <p class="card-text">$25.00</p>
             <button class="btn btn-primary">Details</button>
           </div>
         </div>
       </div>
 
-        <div class="col-sm-4 mb-4">
+      <!-- Apparel 6 -->
+      <div class="col-sm-4 mb-4">
         <div class="card">
-          <img src="apparel6.jpg" class="card-img-top img-fluid" alt="gym co-ord" />
+          <img src="{% static 'apparel6.jpg' %}" class="card-img-top img-fluid" alt="Gym Co-ord" />
           <div class="card-body">
-            <h5 class="card-title">gym co-ord</h5>
-            <p class="card-text">Size: xs</p>
-            <p class="card-text">Color: maroon </p>
+            <h5 class="card-title">Gym Co-ord</h5>
+            <p class="card-text">Size: XS</p>
+            <p class="card-text">Color: Maroon</p>
             <p class="card-text">$60.00</p>
             <button class="btn btn-primary">Details</button>
           </div>

@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import login_view, logout_view, home_view, store_home, electronics, apparel, books, signup_view
+from .views import login_view, logout_view, home_view, store_home, electronics, apparel, books, signup_view 
+from .views import external_books_api
 
 urlpatterns = [
     path('', store_home, name='store-home'),
@@ -12,4 +13,7 @@ urlpatterns = [
     path('electronics/', electronics, name='electronics'),
     path('apparel/', apparel, name='apparel'),
     path('books/', books, name='books'),
+    path('external-books/', external_books_api, name='external-books'),
+
+
 ]

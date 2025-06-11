@@ -1,24 +1,62 @@
-from django.http import HttpResponse
-from django.template import loader
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import logout 
+from django.contrib.auth import logout
 import requests
-
 
 def store_home(request):
     return render(request, 'home.html')
 
+#=========================================================================#
 def electronics(request):
-    return render(request, 'electronics.html')
+    # URL to get electronics products from an external API (up to 100 items)
+    url = 'https://dummyjson.com/products/category/electronics?limit=100'
+    # Empty list to hold products we will show on the page
+    products_list = []
+    # Variable to store error messages, if any
+    error = None
 
-def apparel(request):
-    return render(request, 'apparel.html')
+    try:
+        resp = requests.get(url) # send an HTTP GET request to the API URL to get the products data.
+        if resp.status_code == 200:
+            all_products = resp.json().get('products', [])
 
-def books(request):
-    return render(request, 'books.html')
+            if request.method == 'POST':
+                query = request.POST.get('query', '').strip().lower()
+                products_list = [
+                    p for p in all_products if query in p.get('title', '').lower()
+                ]
+                if not products_list:
+                    error = "No electronics found for that search."
+            else:
+                # On GET, show all products
+                products_list = all_products
+        else:
+            error = "Couldn't load electronics items."
+    except Exception as e:
+        error = f"Error: {e}"
+
+    return render(request, 'electronics.html', {
+        'products': products_list,
+        'error': error,
+    })
+
+
+def electronics_detail(request, product_id):
+    url = f'https://dummyjson.com/products/{product_id}'
+    try:
+        resp = requests.get(url)
+        if resp.status_code == 200:
+            product = resp.json()
+            return render(request, 'electronics_detail.html', {'product': product})
+        else:
+            return render(request, 'electronics_detail.html', {'error': 'Product not found'})
+    except Exception as e:
+        return render(request, 'electronics_detail.html', {'error': f"Error: {e}"})
+
+#=========================================================================#
+
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -50,34 +88,25 @@ def logout_view(request):
     return redirect('login')
 
 
+def books(request):
+    url = 'https://stephen-king-api.onrender.com/api/books'
+    response = requests.get(url)
+    books_list = []
 
-def external_books_api(request):
+    if response.status_code == 200:
+        data = response.json()
+        books_list = data.get('data', [])
+
+    # If a book is searched via Details button
     if request.method == 'POST':
-        user_input = request.POST.get('title')
-        url = 'https://stephen-king-api.onrender.com/api/books'
-        response = requests.get(url)
+        searched_title = request.POST.get('search_title', '').strip().lower()
+        for book in books_list:
+            if book.get('Title', '').strip().lower() == searched_title:
+                return render(request, 'book_detail.html', {
+                    'title': book.get('Title'),
+                    'publisher': book.get('Publisher'),
+                    'isbn': book.get('ISBN')
+                })
+        return render(request, 'book_detail.html', {'error': 'Book not found'})
 
-        if response.status_code == 200:
-            result = response.json()
-            search_dict = {
-                0: "carrie", 1: "salem's Lot", 2: "the shining", 3: "rage",
-                4: "The Stand", 5: "The Long Walk", 6: "The Dead Zone", 7: "Firestarter",
-                8: "Roadwork", 9: "Cujo", 10: "The Running Man", 11: "The Dark Tower",
-                12: "Christine ", 13: "Pet Sematary", 14: "Cycle of the Werewolf",
-                15: "The Talisman", 16: "The Eyes of the Dragon", 17: "Thinner",
-                18: "It", 19: "The Dark Tower II: The Drawing of the Three", 20: "Misery"
-            }
-
-            for k, v in search_dict.items():
-                if v.lower().strip() == user_input.lower().strip():
-                    publisher = result['data'][k]['Publisher']
-                    isbn = result['data'][k]['ISBN']
-                    return render(request, 'api_result.html', {
-                        'title': v,
-                        'publisher': publisher,
-                        'isbn': isbn
-                    })
-
-        return render(request, 'api_result.html', {'error': 'Book not found or API error'})
-
-    return render(request, 'api_form.html')
+    return render(request, 'books.html', {'books': books_list})

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Details</title>
+</head>
+<body>
+  {% if error %}
+    <p style="color:red;">{{ error }}</p>
+  {% else %}
+    <h2>Results for: {{ title }}</h2>
+    <p><strong>Publisher:</strong> {{ publisher }}</p>
+    <p><strong>ISBN:</strong> {{ isbn }}</p>
+  {% endif %}
+  <a href="{% url 'external-books' %}">Search Again</a>
+</body>
+</html>

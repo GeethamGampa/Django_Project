@@ -110,3 +110,31 @@ def books(request):
         return render(request, 'book_detail.html', {'error': 'Book not found'})
 
     return render(request, 'books.html', {'books': books_list})
+
+def apparel(request):
+       
+    url = 'https://dummyjson.com/products/category/womens-dresses?limit=100'
+    products_list = []
+    error = None
+
+    resp = requests.get(url)
+    if resp.status_code == 200:
+        all_products = resp.json().get('products', [])
+
+        if request.method == 'POST':
+            query = request.POST.get('query', '').strip().lower()
+            products_list = [
+                p for p in all_products
+                if query in p.get('title', '').lower()
+            ]
+            if not products_list:
+                error = "No apparel found for that search."
+        else:
+            products_list = all_products
+    else:
+        error = "Couldn't load apparel items."
+
+    return render(request, 'apparel.html', {
+        'products': products_list,
+        'error': error,
+    })

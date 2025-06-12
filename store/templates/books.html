@@ -21,110 +21,42 @@
   </nav>
 
   <div class="container">
-    <h1 class="text-center">Books</h1>
+    <h1 class="text-center mt-4">Books</h1>
     <p class="lead text-center">Discover your next great read</p>
+  </div>
+
+
+  <div class="container text-center mb-4">
+    <form method="POST" action="{% url 'books' %}">
+      {% csrf_token %}
+      <input type="text" name="search_title" class="form-control" placeholder="Search by book title" style="max-width: 400px; margin: 0 auto;" required>
+      <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </form>
   </div>
 
   <!-- Books Grid -->
   <div class="container">
     <div class="row">
-
+      {% for book in books %}
       <div class="col-sm-3 mb-4">
-        <div class="card">
-          <img src="{% static 'book1.jpg' %}" class="card-img-top" alt="Python for Beginners" />
-          <div class="card-body">
-            <h5 class="card-title">Python for Beginners</h5>
-            <p class="card-text">Author: John Smith</p>
-            <p class="card-text">$29.99</p>
-            <button class="btn btn-primary">Details</button>
+        <div class="card h-100">
+          <img src="{% static 'default_book.jpg' %}" class="card-img-top" alt="{{ book.Title }}" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ book.Title }}</h5>
+            
+            <!-- Details Button Form -->
+            <form method="POST" action="{% url 'books' %}" class="mt-auto">
+              {% csrf_token %}
+              <input type="hidden" name="search_title" value="{{ book.Title }}">
+              <button type="submit" class="btn btn-primary">Details</button>
+            </form>
+
           </div>
         </div>
       </div>
-
-      <div class="col-sm-3 mb-4">
-        <div class="card">
-          <img src="{% static 'book2.jpg' %}" class="card-img-top" alt="Intro to Databases" />
-          <div class="card-body">
-            <h5 class="card-title">Intro to Databases</h5>
-            <p class="card-text">Author: Jane Doe</p>
-            <p class="card-text">$24.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3 mb-4">
-        <div class="card">
-          <img src="{% static 'book3.jpg' %}" class="card-img-top" alt="Learn Bootstrap" />
-          <div class="card-body">
-            <h5 class="card-title">Learn Bootstrap</h5>
-            <p class="card-text">Author: Mark Lee</p>
-            <p class="card-text">$19.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3 mb-4">
-        <div class="card">
-          <img src="{% static 'book4.jpg' %}" class="card-img-top" alt="Mastering Django" />
-          <div class="card-body">
-            <h5 class="card-title">Mastering Django</h5>
-            <p class="card-text">Author: Alice Brown</p>
-            <p class="card-text">$34.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3 mb-4">
-        <div class="card">
-          <img src="{% static 'book5.jpg' %}" class="card-img-top" alt="JavaScript Essentials" />
-          <div class="card-body">
-            <h5 class="card-title">JavaScript Essentials</h5>
-            <p class="card-text">Author: Robert Green</p>
-            <p class="card-text">$22.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3 mb-4">
-        <div class="card">
-          <img src="{% static 'book6.jpg' %}" class="card-img-top" alt="Data Science Basics" />
-          <div class="card-body">
-            <h5 class="card-title">Data Science Basics</h5>
-            <p class="card-text">Author: Emily White</p>
-            <p class="card-text">$27.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3 mb-4">
-        <div class="card">
-          <img src="{% static 'book7.jpg' %}" class="card-img-top" alt="Effective Communication" />
-          <div class="card-body">
-            <h5 class="card-title">Effective Communication</h5>
-            <p class="card-text">Author: Sarah Black</p>
-            <p class="card-text">$18.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3 mb-4">
-        <div class="card">
-          <img src="{% static 'book8.jpg' %}" class="card-img-top" alt="Artificial Intelligence" />
-          <div class="card-body">
-            <h5 class="card-title">Artificial Intelligence</h5>
-            <p class="card-text">Author: Michael Blue</p>
-            <p class="card-text">$39.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
+      {% empty %}
+      <p class="text-center">No books found.</p>
+      {% endfor %}
     </div>
   </div>
 

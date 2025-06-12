@@ -2,121 +2,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Apparel Showcase</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <title>Apparel</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .card-img-top {
+      height: 200px;
+      object-fit: contain;
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Navigation bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
     <a class="navbar-brand" href="#">Store</a>
-    <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="/store/electronics/">Electronics</a></li>
-        <li class="nav-item"><a class="nav-link" href="/store/books/">Books</a></li>
-        <li class="nav-item"><a class="nav-link active" href="/store/apparel/">Apparel</a></li>
-    </ul>
-  </nav>
-  
-  <!-- Page Title -->
-  <div class="container mt-4">
-    <h1 class="text-center">Apparel Showcase</h1>
-    <p class="lead text-center">Check out our latest clothing collection</p>
-  </div>
-
-  <!-- Apparel Grid -->
-  <div class="container mt-4">
-    <div class="row">
-
-      <!-- Apparel 1 -->
-      <div class="col-sm-4 mb-4">
-        <div class="card">
-          <img src="{% static 'apparel1.jpg' %}" class="card-img-top img-fluid" alt="T-Shirt" />
-          <div class="card-body">
-            <h5 class="card-title">Classic T-Shirt</h5>
-            <p class="card-text">Size: M</p>
-            <p class="card-text">Color: Blue</p>
-            <p class="card-text">$19.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apparel 2 -->
-      <div class="col-sm-4 mb-4">
-        <div class="card">
-          <img src="{% static 'apparel2.jpg' %}" class="card-img-top img-fluid" alt="Jeans" />
-          <div class="card-body">
-            <h5 class="card-title">Blue Jeans</h5>
-            <p class="card-text">Size: 32</p>
-            <p class="card-text">Color: Denim</p>
-            <p class="card-text">$49.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apparel 3 -->
-      <div class="col-sm-4 mb-4">
-        <div class="card">
-          <img src="{% static 'apparel3.jpg' %}" class="card-img-top img-fluid" alt="Jacket" />
-          <div class="card-body">
-            <h5 class="card-title">Leather Jacket</h5>
-            <p class="card-text">Size: L</p>
-            <p class="card-text">Color: Black</p>
-            <p class="card-text">$99.99</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apparel 4 -->
-      <div class="col-sm-4 mb-4">
-        <div class="card">
-          <img src="{% static 'apparel4.jpg' %}" class="card-img-top img-fluid" alt="Dress" />
-          <div class="card-body">
-            <h5 class="card-title">Dress</h5>
-            <p class="card-text">Size: S</p>
-            <p class="card-text">Color: White-Black</p>
-            <p class="card-text">$50.00</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apparel 5 -->
-      <div class="col-sm-4 mb-4">
-        <div class="card">
-          <img src="{% static 'apparel5.jpg' %}" class="card-img-top img-fluid" alt="Vest" />
-          <div class="card-body">
-            <h5 class="card-title">Vest</h5>
-            <p class="card-text">Size: XS</p>
-            <p class="card-text">Color: White</p>
-            <p class="card-text">$25.00</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apparel 6 -->
-      <div class="col-sm-4 mb-4">
-        <div class="card">
-          <img src="{% static 'apparel6.jpg' %}" class="card-img-top img-fluid" alt="Gym Co-ord" />
-          <div class="card-body">
-            <h5 class="card-title">Gym Co-ord</h5>
-            <p class="card-text">Size: XS</p>
-            <p class="card-text">Color: Maroon</p>
-            <p class="card-text">$60.00</p>
-            <button class="btn btn-primary">Details</button>
-          </div>
-        </div>
-      </div>
-
+    <div class="ms-auto">
+      <a class="btn btn-link" href="{% url 'books' %}">Books</a>
+      <a class="btn btn-link" href="{% url 'electronics' %}">Electronics</a>
+      <a class="btn btn-link active" href="{% url 'apparel' %}">Apparel</a>
     </div>
   </div>
+</nav>
+
+<div class="container py-4">
+  <h1 class="text-center">Apparel</h1>
+
+  <form method="POST" class="row justify-content-center mb-4">
+    {% csrf_token %}
+    <div class="col-md-6">
+      <div class="input-group">
+        <input type="text" name="query" class="form-control"
+               placeholder="Search apparel (e.g., dress)" required>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </form>
+
+  {% if error %}
+    <div class="alert alert-warning text-center">{{ error }}</div>
+  {% endif %}
+
+  <div class="row gy-4">
+    {% for product in products %}
+      <div class="col-sm-6 col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="{{ product.thumbnail }}" class="card-img-top"
+               alt="{{ product.title }}">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text mb-auto">${{ product.price }} • Rating: {{ product.rating }}</p>
+            <button class="btn btn-outline-primary mt-2"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#details{{ product.id }}">
+              Details
+            </button>
+            <div class="collapse mt-2" id="details{{ product.id }}">
+              <p><strong>Description:</strong> {{ product.description }}</p>
+              <p><strong>Brand:</strong> {{ product.brand }}</p>
+              <p><strong>Stock:</strong> {{ product.stock }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center">No items to display.</p>
+    {% endfor %}
+  </div>
+</div>
 
 </body>
 </html>
-

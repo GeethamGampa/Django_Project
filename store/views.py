@@ -127,7 +127,7 @@ def apparel(request):
                 p for p in all_products
                 if query in p.get('title', '').lower()
             ]
-            if not products_list:
+            if not products_list: 
                 error = "No apparel found for that search."
         else:
             products_list = all_products
